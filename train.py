@@ -3,7 +3,8 @@ import torch
 from model import UNet
 from torch import nn
 from utils import *
-
+import warnings
+warnings.filterwarnings("ignore", category=UserWarning)
 
 
 
@@ -17,8 +18,7 @@ batch_size=16
 num_of_workers=4
 epochs=50
 upper_loss=1.0
-import warnings
-warnings.filterwarnings("ignore", category=UserWarning) 
+ 
 
 
 
@@ -108,10 +108,6 @@ def main():
         if (epoch+1) %10==0:
             save_latest(checkpoint)
             print('latest model has been saved')
-        # if avg_loss<upper_loss:
-        #     upper_loss=avg_loss
-        #     save_best(upper_loss)
-            # print(f'best model has been saved with loss of {upper_loss}')
     result_train['loss'].append(avg_loss),result_train['accuracy'].append(avg_acc),result_train['dice'].append(avg_dice)
     result_test['loss'].append(avg_test_loss),result_test['accuracy'].append(avg_test_acc),result_test['dice'].append(avg_test_dice)
 if __name__ == "__main__":
